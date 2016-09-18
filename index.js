@@ -37,7 +37,7 @@ app.post('/', function(req, res) {
 				+ " of " + domain + " and your message is: " + text
 	}));
 
-	var Post = Parse.Object.extend("content-demo");
+	var Post = Parse.Object.extend("contentDemo");
 	var postRepo = new Post();
 	postRepo.set("message", text);
 	postRepo.set("by", userName);
