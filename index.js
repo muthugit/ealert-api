@@ -41,16 +41,8 @@ app.post('/', function(req, res) {
 	var postRepo = new Post();
 	postRepo.set("message", text);
 	postRepo.set("by", userName);
-	postRepo.save(req.body, {
-		success : function(userRepo) {
-			res.send("Post created: id===> " + userRepo.id);
-		},
-		error : function(userRepo, error) {
-			console.log("Error==> " + JSON.stringify(error));
-			console.log("EEEEE=>" + JSON.stringify(userRepo));
-			res.send("ERROR");
-		}
-	});
+	postRepo.save();
+	console.log("Saved");
 
 });
 
