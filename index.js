@@ -36,6 +36,22 @@ app.post('/', function(req, res) {
 		"text" : "Hi: " + userName + " you requested from: " + channelName
 				+ " of " + domain + " and your message is: " + text
 	}));
+
+	var Post = Parse.Object.extend("content-demo");
+	var postRepo = new Post();
+	postRepo.set("message", text);
+	postRepo.set("by", userName);
+	postRepo.save(req.body, {
+		success : function(userRepo) {
+			res.send("Post created: id===> " + userRepo.id);
+		},
+		error : function(userRepo, error) {
+			console.log("Error==> " + JSON.stringify(error));
+			console.log("EEEEE=>" + JSON.stringify(userRepo));
+			res.send("ERROR");
+		}
+	});
+
 });
 
 app.listen(3000, function() {
