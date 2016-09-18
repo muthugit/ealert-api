@@ -30,8 +30,8 @@ app.post('/', function(req, res) {
 	var channelName = req.body.channel_name;
 	var text = req.body.text;
 	var triggeredWord = req.body.trigger_word;
-	text = trim(text.replace(triggeredWord, ""));
-	if (text == "")
+	text = (text.replace(triggeredWord, ""));
+	if (text.trim() == "")
 		res.send(JSON.stringify({
 			"text" : "Sorry invalid message"
 		}));
