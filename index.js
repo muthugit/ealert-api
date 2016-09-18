@@ -1,4 +1,4 @@
-// --- THIS IS THE API FOR EALERT
+// -- THIS IS THE API FOR EALERT
 var express = require('express');
 var app = express();
 // BODY PARSER
