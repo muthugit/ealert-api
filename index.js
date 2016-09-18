@@ -45,7 +45,6 @@ app.post('/', function(req, res) {
 			res.send(JSON.stringify({
 				"text" : userName + ", " + successMsg + newPost.id + " in #"
 						+ channelName
-						+ " <a href='https://google.com'>Google</a>"
 			}));
 		},
 		error : function(newPost, error) {
