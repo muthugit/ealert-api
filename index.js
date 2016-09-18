@@ -38,13 +38,14 @@ app.post('/', function(req, res) {
 	postRepo.set("by", userName);
 	postRepo.set("channel", channelName);
 	postRepo.set("organization", domain);
-	postRepo.set("postType",triggeredWord);
+	postRepo.set("postType", triggeredWord);
 	postRepo.save(null, {
 		success : function(newPost) {
 			res.setHeader('Content-Type', 'application/json');
 			res.send(JSON.stringify({
 				"text" : userName + ", " + successMsg + newPost.id + " in #"
 						+ channelName
+						+ " <a href='https://google.com'>Google</a>"
 			}));
 		},
 		error : function(newPost, error) {
