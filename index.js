@@ -41,7 +41,14 @@ app.post('/', function(req, res) {
 	var postRepo = new Post();
 	postRepo.set("message", text);
 	postRepo.set("by", userName);
-	postRepo.save();
+	postRepo.save(null, {
+		success : function(newPost) {
+			console.log("Post added!");
+		},
+		error : function(newPost, error) {
+			console.log("Error: " + error.code + " " + error.message);
+		}
+	});
 	console.log("Saved");
 
 });
