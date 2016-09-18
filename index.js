@@ -18,12 +18,16 @@ app.use(bodyParser.urlencoded({
 // END BODY PARSER
 
 app.post('/', function (req, res) {
-  //res.send('Hello World!');
-var userName=req.body.user_name;
- res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({ "text": "Hi: "+userName+" i am muthu" }));
+	//res.send('Hello World!');
+	var userName=req.body.user_name;
+	var channelName=req.body.channel_name;
+	var text=req.body.text;
+	var triggeredWord=req.body.trigger_word;
+	var domain=req.body.team_domain;
+	res.setHeader('Content-Type', 'application/json');
+	res.send(JSON.stringify({ "text": "Hi: "+userName+" you requested from: "+channelName+" of "+domain }));
 });
 
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+	console.log('Example app listening on port 3000!');
 });
