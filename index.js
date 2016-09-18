@@ -1,6 +1,12 @@
 // THIS IS THE API FOR EALERT
 var express = require('express');
 var app = express();
+
+// PARSE CONFIGURATION
+var Parse = require('parse/node');
+Parse.initialize("myAppId", '', 'master');
+Parse.serverURL = 'http://localhost:1337/parse';
+
 // BODY PARSER
 var bodyParser = require('body-parser');
 app.use(bodyParser.json({
