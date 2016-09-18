@@ -43,8 +43,8 @@ app.post('/', function(req, res) {
 		success : function(newPost) {
 			res.setHeader('Content-Type', 'application/json');
 			res.send(JSON.stringify({
-				"text" : userName + ", " + successMsg + newPost.id + " in #"
-						+ channelName
+				"text" : userName + ", " + successMsg + "*" + newPost.id
+						+ "* in #" + channelName
 			}));
 		},
 		error : function(newPost, error) {
