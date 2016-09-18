@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({
 // END BODY PARSER
 
 app.post('/', function(req, res) {
-	var successMsg = "Your message has been successfully posted with ID: ;"
+	var successMsg = "Your message has been successfully posted with ID: "
 	// res.send('Hello World!');
 	var userName = req.body.user_name;
 	var channelName = req.body.channel_name;
@@ -37,11 +37,13 @@ app.post('/', function(req, res) {
 	postRepo.set("message", text);
 	postRepo.set("by", userName);
 	postRepo.set("channel", channelName);
+	postRepo.set("organization", domain);
 	postRepo.save(null, {
 		success : function(newPost) {
 			res.setHeader('Content-Type', 'application/json');
 			res.send(JSON.stringify({
-				"text" : userName + ", " + successMsg + newPost.id
+				"text" : userName + ", " + successMsg + newPost.id + " in "
+						+ channelName
 			}));
 		},
 		error : function(newPost, error) {
