@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded({
 // END BODY PARSER
 
 app.post('/', function(req, res) {
+	var successMsg = "Your message has been successfully posted with ID: ;"
 	// res.send('Hello World!');
 	var userName = req.body.user_name;
 	var channelName = req.body.channel_name;
@@ -31,24 +32,23 @@ app.post('/', function(req, res) {
 	var triggeredWord = req.body.trigger_word;
 	text = text.replace(triggeredWord, "");
 	var domain = req.body.team_domain;
-	res.setHeader('Content-Type', 'application/json');
-	res.send(JSON.stringify({
-		"text" : "Hi: " + userName + " you requested from: " + channelName
-				+ " of " + domain + " and your message is: " + text
-	}));
-
 	var Post = Parse.Object.extend("contentDemo");
 	var postRepo = new Post();
 	postRepo.set("message", text);
 	postRepo.set("by", userName);
+	postRepo.set("channel", channelName);
 	postRepo.save(null, {
 		success : function(newPost) {
-			console.log("Post added!");
+			res.setHeader('Content-Type', 'application/json');
+			res.send(JSON.stringify({
+				"text" : userName + ", " + successMsg + newPost.id
+			}));
 		},
 		error : function(newPost, error) {
 			console.log("Error: " + error.code + " " + error.message);
 		}
 	});
+
 	console.log("Saved");
 
 });
