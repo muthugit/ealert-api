@@ -31,11 +31,11 @@ app.post('/', function(req, res) {
 	var text = req.body.text;
 	var triggeredWord = req.body.trigger_word;
 	text = (text.replace(triggeredWord, ""));
-	if (text.trim() == "")
+	if (text.trim() == "") {
 		res.send(JSON.stringify({
 			"text" : "Sorry invalid message"
 		}));
-	else {
+	} else {
 		var domain = req.body.team_domain;
 		var Post = Parse.Object.extend("contentDemo");
 		var postRepo = new Post();
