@@ -30,30 +30,35 @@ app.post('/', function(req, res) {
 	var channelName = req.body.channel_name;
 	var text = req.body.text;
 	var triggeredWord = req.body.trigger_word;
-	text = text.replace(triggeredWord, "");
-	var domain = req.body.team_domain;
-	var Post = Parse.Object.extend("contentDemo");
-	var postRepo = new Post();
-	postRepo.set("message", text);
-	postRepo.set("by", userName);
-	postRepo.set("channel", channelName);
-	postRepo.set("organization", domain);
-	postRepo.set("postType", triggeredWord);
-	postRepo.save(null, {
-		success : function(newPost) {
-			res.setHeader('Content-Type', 'application/json');
-			res.send(JSON.stringify({
-				"text" : userName + ", " + successMsg + "*" + newPost.id
-						+ "* in #" + channelName
-			}));
-		},
-		error : function(newPost, error) {
-			console.log("Error: " + error.code + " " + error.message);
-		}
-	});
+	text = trim(text.replace(triggeredWord, ""));
+	if (text == "")
+		res.send(JSON.stringify({
+			"text" : "Sorry invalid message"
+		}));
+	else {
+		var domain = req.body.team_domain;
+		var Post = Parse.Object.extend("contentDemo");
+		var postRepo = new Post();
+		postRepo.set("message", text);
+		postRepo.set("by", userName);
+		postRepo.set("channel", channelName);
+		postRepo.set("organization", domain);
+		postRepo.set("postType", triggeredWord);
+		postRepo.save(null, {
+			success : function(newPost) {
+				res.setHeader('Content-Type', 'application/json');
+				res.send(JSON.stringify({
+					"text" : userName + ", " + successMsg + "*" + newPost.id
+							+ "* in #" + channelName
+				}));
+			},
+			error : function(newPost, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
 
-	console.log("Saved");
-
+		console.log("Saved");
+	}
 });
 
 app.listen(3000, function() {
