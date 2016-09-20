@@ -23,6 +23,10 @@ app.use(bodyParser.urlencoded({
 }));
 // END BODY PARSER
 
+app.get('/',function(req,res){
+	res.send("Hi");
+})
+
 app.post('/', function(req, res) {
 	var successMsg = "Your message has been successfully posted with ID: "
 	// res.send('Hello World!');
