@@ -23,8 +23,19 @@ app.use(bodyParser.urlencoded({
 }));
 // END BODY PARSER
 
-app.get('/',function(req,res){
-	res.send("Hi");
+app.get('/', function(req, res) {
+	var Posts = Parse.Object.extend("contentDemo");
+	var query = new Parse.Query(Posts);
+	query.find({
+		success : function(results) {
+			console.log("Posts found");
+			console.log("Total posts: " + results.length);
+			res.send(results);
+		},
+		error : function(error) {
+			console.log("Error: " + error.code + " " + error.message);
+		}
+	});
 })
 
 app.post('/', function(req, res) {
