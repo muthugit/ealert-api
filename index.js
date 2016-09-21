@@ -23,6 +23,14 @@ app.use(bodyParser.urlencoded({
 }));
 // END BODY PARSER
 
+app.all('/*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Methods", "GET, POST","PUT");
+  next();
+
+});
+
 app.get('/', function(req, res) {
 	var Posts = Parse.Object.extend("contentDemo");
 	var query = new Parse.Query(Posts);
