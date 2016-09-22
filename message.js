@@ -18,8 +18,6 @@ var messageRepository = function() {
           console.log("Channel exists");
         } else {
           var channelInfo = {};
-          channelInfo['channelName']=channelName;
-          channelInfo['organization']=organization;
           self.createSingleObject(Parse,channelInfo,"channels";
         }
       }
