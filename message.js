@@ -37,7 +37,7 @@ var messageRepository = function() {
 
 
       for (var key in objectToCreate){
-        var value = obj[key];
+        var value = objectToCreate[key];
         console.log("<br> - " + key + ": " + value);
       }
 
