@@ -28,11 +28,9 @@ var messageRepository = function() {
   }
 
   self.createSingleObject=function(Parse,repository){
-    console.log("Started creating object: "+object);
-
     repository.save(null, {
       success : function(newObject) {
-        console.log("Object created for: "+object);
+        console.log("Object created");
       },error : function(newObject, error) {
         console.log("Error: " + error.code + " " + error.message);
       }
