@@ -27,11 +27,11 @@ var messageRepository = function() {
     console.log("Started creating object: "+object);
     var GenericObject = Parse.Object.extend(object);
     var genericObjectRepo = new GenericObject();
-    postRepo.set(columnName, objectToCreate);
-    postRepo.save(null, {
+    genericObjectRepo.set(columnName, objectToCreate);
+    genericObjectRepo.save(null, {
       success : function(newObject) {
         console.log("Object created for: "+object);
-      },error : function(newPost, error) {
+      },error : function(newObject, error) {
         console.log("Error: " + error.code + " " + error.message);
       }
     });
