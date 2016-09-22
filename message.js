@@ -35,14 +35,12 @@ var messageRepository = function() {
     var GenericObject = Parse.Object.extend(object);
     var genericObjectRepo = new GenericObject();
 
-    for (var i = 0; i < objectToCreate.length; i++){
-      console.log("<br><br>array index: " + i);
-      var obj = arr[i];
-      for (var key in obj){
+
+      for (var key in objectToCreate){
         var value = obj[key];
         console.log("<br> - " + key + ": " + value);
       }
-    }
+
 
 
     genericObjectRepo.set(objectToCreate);
