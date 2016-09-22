@@ -30,6 +30,7 @@ var messageRepository = function() {
     var genericObjectRepo = new GenericObject();
     //genericObjectRepo.set(columnName, objectToCreate);
     objectToCreate=JSON.parse(objectToCreate);
+    console.log(objectToCreate)
     genericObjectRepo.save(objectToCreate, {
       success : function(newObject) {
         console.log("Object created for: "+object);
