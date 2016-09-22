@@ -17,18 +17,20 @@ var messageRepository = function() {
         if (results.length > 0) {
           console.log("Channel exists");
         } else {
-          self.createSingleObject(Parse,channelName,"channels","channelName");
+          var channelInfo = {};
+          channelInfo['channelName']=channelName;
+          channelInfo['organization']=organization;
+          self.createSingleObject(Parse,channelInfo,"channels";
         }
       }
     });
   }
 
-  self.createSingleObject=function(Parse,objectToCreate,object,columnName){
+  self.createSingleObject=function(Parse,objectToCreate,object){
     console.log("Started creating object: "+object);
     var GenericObject = Parse.Object.extend(object);
     var genericObjectRepo = new GenericObject();
-    genericObjectRepo.set(columnName, objectToCreate);
-    genericObjectRepo.save(null, {
+    genericObjectRepo.save(objectToCreate, {
       success : function(newObject) {
         console.log("Object created for: "+object);
       },error : function(newObject, error) {
