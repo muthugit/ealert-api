@@ -64,6 +64,7 @@ app.post('/', function(req, res) {
 	} else {
 		var messageRepositoryInstance = new messageRepository();
 		messageRepositoryInstance.addMessage(Parse, organization,userName,channelName,text,triggeredWord, res);
+		res.send("Sent");
 	}
 });
 
