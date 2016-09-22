@@ -7,6 +7,25 @@ var messageRepository = function() {
     self.createMessage(Parse, organization,userName,channelName,text,triggeredWord,  res);
   }
 
+  self.createOrganization=function(Parse,organization){
+    var Organization = Parse.Object.extend("organizations");
+    var organizationRepo = new Organization();
+    var query = new Parse.Query(Organization);
+    query.equalTo("organization", organization);
+    query.find({
+      success : function(results) {
+        console.log("Successfully retrieved " + results.length
+        + " scores.");
+        if (results.length > 0) {
+          console.log("Channel exists");
+        } else {
+          organizationRepo.set("organization",organization);
+          self.createObject(Parse,organizationRepo);
+        }
+      }
+    });
+  }
+
   self.createChannel=function(Parse,organization,channelName){
     var Channel = Parse.Object.extend("channels");
     var channelRepo = new Channel();
@@ -23,32 +42,15 @@ var messageRepository = function() {
 
           channelRepo.set("organization",organization);
           channelRepo.set("channelName",channelName);
-          self.createSingleObject(Parse,channelRepo);
+          self.createObject(Parse,channelRepo);
         }
       }
     });
   }
 
-  self.createOrganization=function(Parse,organization){
-    var Organization = Parse.Object.extend("organizations");
-    var organizationRepo = new Organization();
-    var query = new Parse.Query(Organization);
-    query.equalTo("organization", organization);
-    query.find({
-      success : function(results) {
-        console.log("Successfully retrieved " + results.length
-        + " scores.");
-        if (results.length > 0) {
-          console.log("Channel exists");
-        } else {
-          organizationRepo.set("organization",organization);
-          self.createSingleObject(Parse,organizationRepo);
-        }
-      }
-    });
-  }
 
-  self.createSingleObject=function(Parse,repository){
+
+  self.createObject=function(Parse,repository){
     repository.save(null, {
       success : function(newObject) {
         console.log("Object created");

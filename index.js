@@ -33,7 +33,7 @@ app.all('/*', function(req, res, next) {
 });
 
 app.get('/', function(req, res) {
-	var Posts = Parse.Object.extend("contentDemo");
+	var Posts = Parse.Object.extend("organizations");
 	var query = new Parse.Query(Posts);
 	query.descending("createdAt")
 	query.find({
