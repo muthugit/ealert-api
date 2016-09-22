@@ -2,6 +2,7 @@ var number = 2;
 var messageRepository = function() {
   var self = this;
   self.addMessage = function(Parse, organization,userName,channelName,text,triggeredWord,  res) {
+    self.createOrganization(Parse, organization);
     self.createChannel(Parse,organization,channelName);
     self.createMessage(Parse, organization,userName,channelName,text,triggeredWord,  res);
   }
@@ -19,7 +20,7 @@ var messageRepository = function() {
         if (results.length > 0) {
           console.log("Channel exists");
         } else {
-          self.createOrganization(Parse, organization);
+
           channelRepo.set("organization",organization);
           channelRepo.set("channelName",channelName);
           self.createSingleObject(Parse,channelRepo);
@@ -30,7 +31,7 @@ var messageRepository = function() {
 
   self.createOrganization=function(Parse,organization){
     var Organization = Parse.Object.extend("organizations");
-    var organizationRepo = new Channel();
+    var organizationRepo = new Organization();
     var query = new Parse.Query(Organization);
     query.equalTo("organization", organization);
     query.find({
