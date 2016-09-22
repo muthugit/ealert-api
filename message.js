@@ -34,10 +34,10 @@ var messageRepository = function() {
     console.log("Started creating object: "+object);
     var GenericObject = Parse.Object.extend(object);
     var genericObjectRepo = new GenericObject();
-    //genericObjectRepo.set(columnName, objectToCreate);
+    genericObjectRepo.set(objectToCreate);
     //objectToCreate=JSON.parse(objectToCreate);
     console.log(objectToCreate)
-    genericObjectRepo.save(objectToCreate, {
+    genericObjectRepo.save(null, {
       success : function(newObject) {
         console.log("Object created for: "+object);
       },error : function(newObject, error) {
