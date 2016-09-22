@@ -48,6 +48,22 @@ app.get('/', function(req, res) {
 	});
 })
 
+app.get('/getPosts', function(req, res) {
+	var Posts = Parse.Object.extend("contentDemo");
+	var query = new Parse.Query(Posts);
+	query.descending("createdAt")
+	query.find({
+		success : function(results) {
+			console.log("Posts found");
+			console.log("Total posts: " + results.length);
+			res.send(results);
+		},
+		error : function(error) {
+			console.log("Error: " + error.code + " " + error.message);
+		}
+	});
+})
+
 app.post('/', function(req, res) {
 	var successMsg = "Your message has been successfully posted with ID: "
 	// res.send('Hello World!');
