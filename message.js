@@ -36,9 +36,9 @@ var messageRepository = function() {
     var genericObjectRepo = new GenericObject();
 
 
-    for (var i = 0; i < arr.length; i++){
+    for (var i = 0; i < objectToCreate.length; i++){
       console.log("<br><br>array index: " + i);
-      var obj = arr[i];
+      var obj = objectToCreate[i];
       for (var key in obj){
         var value = obj[key];
         console.log("<br> - " + key + ": " + value);
