@@ -17,7 +17,10 @@ var messageRepository = function() {
         if (results.length > 0) {
           console.log("Channel exists");
         } else {
-          var channelInfo = {};
+          var channelInfo = {
+            "channelName": channelName,
+            "organization": organization
+          }
           self.createSingleObject(Parse,channelInfo,"channels";
         }
       }
