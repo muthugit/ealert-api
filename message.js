@@ -20,11 +20,11 @@ var messageRepository = function() {
           var channelObject=[];
 
           var channelObject=[];
-          var currentChannel={'channelName':channelName,'organization':organization};
-          channelObject.push(currentChannel);
+          var currentChannel=[{'channelName':channelName,'organization':organization}];
+          //channelObject.push(currentChannel);
 
           //channelObject=[{'channelName':channelName,'organization':organization}];
-          self.createSingleObject(Parse,channelObject,"channels");
+          self.createSingleObject(Parse,currentChannel,"channels");
         }
       }
     });
@@ -36,10 +36,14 @@ var messageRepository = function() {
     var genericObjectRepo = new GenericObject();
 
 
-      for (var key in objectToCreate){
-        var value = objectToCreate[key];
+    for (var i = 0; i < arr.length; i++){
+      console.log("<br><br>array index: " + i);
+      var obj = arr[i];
+      for (var key in obj){
+        var value = obj[key];
         console.log("<br> - " + key + ": " + value);
       }
+    }
 
 
 
