@@ -17,40 +17,20 @@ var messageRepository = function() {
         if (results.length > 0) {
           console.log("Channel exists");
         } else {
-          var channelObject=[];
-
-          var channelObject=[];
-          var currentChannel=[{'channelName':channelName,'organization':organization}];
-          //channelObject.push(currentChannel);
-
-          //channelObject=[{'channelName':channelName,'organization':organization}];
-          self.createSingleObject(Parse,currentChannel,"channels");
+          var GenericObject = Parse.Object.extend("channels");
+          var genericObjectRepo = new GenericObject();
+          genericObjectRepo.set("organization",organization);
+          genericObjectRepo.set("channelName",channelName);
+          self.createSingleObject(Parse,genericObjectRepo);
         }
       }
     });
   }
 
-  self.createSingleObject=function(Parse,objectToCreate,object){
+  self.createSingleObject=function(Parse,repository){
     console.log("Started creating object: "+object);
-    var GenericObject = Parse.Object.extend(object);
-    var genericObjectRepo = new GenericObject();
 
-
-    for (var i = 0; i < objectToCreate.length; i++){
-      console.log("<br><br>array index: " + i);
-      var obj = objectToCreate[i];
-      for (var key in obj){
-        var value = obj[key];
-        console.log("<br> - " + key + ": " + value);
-      }
-    }
-
-
-
-    genericObjectRepo.set(objectToCreate);
-    //objectToCreate=JSON.parse(objectToCreate);
-    console.log(objectToCreate)
-    genericObjectRepo.save(null, {
+    repository.save(null, {
       success : function(newObject) {
         console.log("Object created for: "+object);
       },error : function(newObject, error) {
