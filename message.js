@@ -15,7 +15,7 @@ var messageRepository = function() {
         console.log("Successfully retrieved " + results.length
         + " scores.");
         if (results.length > 0) {
-          res.send("Channel exists");
+          console.log("Channel exists");
         } else {
           self.createSingleObject(Parse,channelName,"channels");
         }
