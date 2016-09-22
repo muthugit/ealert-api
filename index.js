@@ -65,7 +65,7 @@ app.post('/', function(req, res) {
 		var messageRepositoryInstance = new messageRepository();
 		messageRepositoryInstance.addMessage(Parse, organization,userName,channelName,text,triggeredWord, res);
 		res.send(JSON.stringify({
-			"text" :"Thanks");
+			"text" :"Thanks"}));
 	}
 });
 
