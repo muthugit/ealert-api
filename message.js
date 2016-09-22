@@ -17,7 +17,7 @@ var messageRepository = function() {
         if (results.length > 0) {
           console.log("Channel exists");
         } else {
-          var channelObject={"channelName":channelName,"organization":organization}
+          var channelObject=[{"channelName":channelName,"organization":organization}];
           self.createSingleObject(Parse,channelObject,"channels");
         }
       }
@@ -29,7 +29,7 @@ var messageRepository = function() {
     var GenericObject = Parse.Object.extend(object);
     var genericObjectRepo = new GenericObject();
     //genericObjectRepo.set(columnName, objectToCreate);
-    objectToCreate=JSON.parse(objectToCreate);
+    //objectToCreate=JSON.parse(objectToCreate);
     console.log(objectToCreate)
     genericObjectRepo.save(objectToCreate, {
       success : function(newObject) {
