@@ -34,6 +34,7 @@ app.all('/*', function(req, res, next) {
 app.get('/', function(req, res) {
 	var Posts = Parse.Object.extend("contentDemo");
 	var query = new Parse.Query(Posts);
+	query.descending("createdAt")
 	query.find({
 		success : function(results) {
 			console.log("Posts found");
