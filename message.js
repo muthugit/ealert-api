@@ -5,11 +5,13 @@ var messageRepository = function() {
     self.createChannel(Parse,organization,channelName);
     self.createMessage(Parse, organization,userName,channelName,text,triggeredWord,  res);
   }
+
   self.createChannel=function(Parse,organization,channelName){
     var Channel = Parse.Object.extend("channels");
     var channelRepo = new Channel();
     var query = new Parse.Query(Channel);
     query.equalTo("channelName", channelName);
+    query.equalTo("organization", organization);
     query.find({
       success : function(results) {
         console.log("Successfully retrieved " + results.length
@@ -17,11 +19,29 @@ var messageRepository = function() {
         if (results.length > 0) {
           console.log("Channel exists");
         } else {
-          var GenericObject = Parse.Object.extend("channels");
-          var genericObjectRepo = new GenericObject();
-          genericObjectRepo.set("organization",organization);
-          genericObjectRepo.set("channelName",channelName);
-          self.createSingleObject(Parse,genericObjectRepo);
+          self.createOrganization(Parse, organization);
+          channelRepo.set("organization",organization);
+          channelRepo.set("channelName",channelName);
+          self.createSingleObject(Parse,channelRepo);
+        }
+      }
+    });
+  }
+
+  self.createOrganization=function(Parse,organization){
+    var Organization = Parse.Object.extend("organizations");
+    var organizationRepo = new Channel();
+    var query = new Parse.Query(Organization);
+    query.equalTo("organization", organization);
+    query.find({
+      success : function(results) {
+        console.log("Successfully retrieved " + results.length
+        + " scores.");
+        if (results.length > 0) {
+          console.log("Channel exists");
+        } else {
+          organizationRepo.set("organization",organization);
+          self.createSingleObject(Parse,organizationRepo);
         }
       }
     });
