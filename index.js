@@ -1,6 +1,7 @@
 // THIS IS THE API FOR EALERT
 var express = require('express');
 var app = express();
+var messageRepository = require("./message.js");
 
 // PARSE CONFIGURATION
 var Parse = require('parse/node');
@@ -24,10 +25,10 @@ app.use(bodyParser.urlencoded({
 // END BODY PARSER
 
 app.all('/*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  res.header("Access-Control-Allow-Methods", "GET, POST","PUT");
-  next();
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "X-Requested-With");
+	res.header("Access-Control-Allow-Methods", "GET, POST","PUT");
+	next();
 
 });
 
@@ -50,6 +51,7 @@ app.get('/', function(req, res) {
 app.post('/', function(req, res) {
 	var successMsg = "Your message has been successfully posted with ID: "
 	// res.send('Hello World!');
+	var organization="";
 	var userName = req.body.user_name;
 	var channelName = req.body.channel_name;
 	var text = req.body.text;
@@ -60,28 +62,8 @@ app.post('/', function(req, res) {
 			"text" : "Sorry invalid message"
 		}));
 	} else {
-		var domain = req.body.team_domain;
-		var Post = Parse.Object.extend("contentDemo");
-		var postRepo = new Post();
-		postRepo.set("message", text);
-		postRepo.set("by", userName);
-		postRepo.set("channel", channelName);
-		postRepo.set("organization", domain);
-		postRepo.set("postType", triggeredWord);
-		postRepo.save(null, {
-			success : function(newPost) {
-				res.setHeader('Content-Type', 'application/json');
-				res.send(JSON.stringify({
-					"text" : userName + ", " + successMsg + "*" + newPost.id
-							+ "* in #" + channelName
-				}));
-			},
-			error : function(newPost, error) {
-				console.log("Error: " + error.code + " " + error.message);
-			}
-		});
-
-		console.log("Saved");
+		var messageRepositoryInstance = new messageRepository();
+		messageRepositoryInstance.addMessage(Parse, organization,userName,channelName,text,triggeredWord, res);
 	}
 });
 
