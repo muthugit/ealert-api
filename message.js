@@ -36,7 +36,7 @@ var messageRepository = function() {
   }
 
   self.createMessage=function(Parse, organization,userName,channelName,text,triggeredWord,res){
-    var domain = req.body.team_domain;
+    var domain = organization;
     var Post = Parse.Object.extend("contentDemo");
     var postRepo = new Post();
     postRepo.set("message", text);
