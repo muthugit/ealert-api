@@ -69,6 +69,7 @@ app.post('/', function(req, res) {
 	var successMsg = "Your message has been successfully posted with ID: "
 	// res.send('Hello World!');
 	var ordId=req.body.team_id;
+	console.log("Org id: "+orgId);
 	var organization=req.body.team_domain;
 	var userName = req.body.user_name;
 	var channelName = req.body.channel_name;
