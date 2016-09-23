@@ -3,7 +3,7 @@ var messageRepository = function() {
   var self = this;
   self.addMessage = function(Parse, orgId,channelId,organization,userName,channelName,text,triggeredWord,  res) {
     self.createOrganization(Parse, orgId, organization);
-    self.createChannel(Parse,channelId,channelName);
+    self.createChannel(Parse,channelId,channelName,orgId);
     self.createMessage(Parse, orgId,userName,channelId,channelName,text,triggeredWord,  res);
   }
 
@@ -27,7 +27,7 @@ var messageRepository = function() {
     });
   }
 
-  self.createChannel=function(Parse,channelId,channelName){
+  self.createChannel=function(Parse,channelId,channelName,orgId){
     var Channel = Parse.Object.extend("channels");
     var channelRepo = new Channel();
     var query = new Parse.Query(Channel);
@@ -40,6 +40,7 @@ var messageRepository = function() {
           console.log("Channel exists");
         } else {
           channelRepo.set("channelId",channelId);
+          channelRepo.set("orgId",orgId);
           channelRepo.set("channelName",channelName);
           self.createObject(Parse,channelRepo);
         }

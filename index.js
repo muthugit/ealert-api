@@ -48,8 +48,25 @@ app.get('/', function(req, res) {
 	});
 })
 
-app.get('/getPosts/:orgId', function(req, res) {
+app.get('/getPosts/:channelId', function(req, res) {
 	var Posts = Parse.Object.extend("contentDemo");
+	var query = new Parse.Query(Posts);
+	query.equalTo('channelId',req.params['channelId']);
+	query.descending("createdAt")
+	query.find({
+		success : function(results) {
+			console.log("Posts found");
+			console.log("Total posts: " + results.length);
+			res.send(results);
+		},
+		error : function(error) {
+			console.log("Error: " + error.code + " " + error.message);
+		}
+	});
+})
+
+app.get('/getChannels/:orgId', function(req, res) {
+	var Posts = Parse.Object.extend("channels");
 	var query = new Parse.Query(Posts);
 	query.equalTo('orgId',req.params['orgId']);
 	query.descending("createdAt")
