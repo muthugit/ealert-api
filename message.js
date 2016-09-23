@@ -4,7 +4,7 @@ var messageRepository = function() {
   self.addMessage = function(Parse, orgId,channelId,organization,userName,channelName,text,triggeredWord,  res) {
     self.createOrganization(Parse, orgId, organization);
     self.createChannel(Parse,channelId,channelName);
-    self.createMessage(Parse, orgId,userName,channelName,text,triggeredWord,  res);
+    self.createMessage(Parse, orgId,userName,channelId,text,triggeredWord,  res);
   }
 
   self.createOrganization=function(Parse,orgId,organization){
