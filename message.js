@@ -59,14 +59,14 @@ var messageRepository = function() {
     });
   }
 
-  self.createMessage=function(Parse, organization,userName,channelName,text,triggeredWord,res){
-    var domain = organization;
+  self.createMessage=function(Parse, orgId,userName,channelId,text,triggeredWord,res){
+    var domain = orgId;
     var Post = Parse.Object.extend("contentDemo");
     var postRepo = new Post();
     postRepo.set("message", text);
     postRepo.set("by", userName);
-    postRepo.set("channel", channelName);
-    postRepo.set("organization", domain);
+    postRepo.set("channelId", channelId);
+    postRepo.set("orgId", orgId);
     postRepo.set("postType", triggeredWord);
     postRepo.save(null, {
       success : function(newPost) {
