@@ -48,10 +48,10 @@ app.get('/', function(req, res) {
 	});
 })
 
-app.get('/getPosts/:organization', function(req, res) {
+app.get('/getPosts/:orgId', function(req, res) {
 	var Posts = Parse.Object.extend("contentDemo");
 	var query = new Parse.Query(Posts);
-	query.equalTo('organization',req.params['organization']);
+	query.equalTo('orgId',req.params['orgId']);
 	query.descending("createdAt")
 	query.find({
 		success : function(results) {
