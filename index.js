@@ -69,7 +69,7 @@ app.post('/', function(req, res) {
 	var successMsg = "Your message has been successfully posted with ID: "
 	// res.send('Hello World!');
 	var orgId=req.body.team_id;
-	console.log("Org id: "+orgId);
+	var channelId=req.body.channel_id;
 	var organization=req.body.team_domain;
 	var userName = req.body.user_name;
 	var channelName = req.body.channel_name;
@@ -82,7 +82,7 @@ app.post('/', function(req, res) {
 		}));
 	} else {
 		var messageRepositoryInstance = new messageRepository();
-		messageRepositoryInstance.addMessage(Parse, orgId, organization,userName,channelName,text,triggeredWord, res);
+		messageRepositoryInstance.addMessage(Parse, orgId, channelId, organization,userName,channelName,text,triggeredWord, res);
 		res.send(JSON.stringify({
 			"text" :"Thanks"}));
 	}

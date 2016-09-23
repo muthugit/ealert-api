@@ -1,10 +1,10 @@
 var number = 2;
 var messageRepository = function() {
   var self = this;
-  self.addMessage = function(Parse, orgId,organization,userName,channelName,text,triggeredWord,  res) {
+  self.addMessage = function(Parse, orgId,channelId,organization,userName,channelName,text,triggeredWord,  res) {
     self.createOrganization(Parse, orgId, organization);
-    self.createChannel(Parse,organization,channelName);
-    self.createMessage(Parse, organization,userName,channelName,text,triggeredWord,  res);
+    self.createChannel(Parse,channelId,channelName);
+    self.createMessage(Parse, orgId,userName,channelName,text,triggeredWord,  res);
   }
 
   self.createOrganization=function(Parse,orgId,organization){
@@ -27,12 +27,11 @@ var messageRepository = function() {
     });
   }
 
-  self.createChannel=function(Parse,organization,channelName){
+  self.createChannel=function(Parse,channelId,channelName){
     var Channel = Parse.Object.extend("channels");
     var channelRepo = new Channel();
     var query = new Parse.Query(Channel);
-    query.equalTo("channelName", channelName);
-    query.equalTo("organization", organization);
+    query.equalTo("channelId", channelId);
     query.find({
       success : function(results) {
         console.log("Successfully retrieved " + results.length
@@ -41,7 +40,7 @@ var messageRepository = function() {
           console.log("Channel exists");
         } else {
 
-          channelRepo.set("organization",organization);
+          channelRepo.set("channelId",channelId);
           channelRepo.set("channelName",channelName);
           self.createObject(Parse,channelRepo);
         }
