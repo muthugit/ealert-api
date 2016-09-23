@@ -11,7 +11,7 @@ var messageRepository = function() {
     var Organization = Parse.Object.extend("organizations");
     var organizationRepo = new Organization();
     var query = new Parse.Query(Organization);
-    query.equalTo("objectId", orgId);
+    query.equalTo("orgId", orgId);
     query.find({
       success : function(results) {
         console.log("Successfully retrieved " + results.length
@@ -19,6 +19,7 @@ var messageRepository = function() {
         if (results.length > 0) {
           console.log("Channel exists");
         } else {
+          organizationRepo.set("orgId",orgId);
           organizationRepo.set("organization",organization);
           self.createObject(Parse,organizationRepo);
         }
