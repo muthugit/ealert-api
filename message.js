@@ -15,7 +15,7 @@ var messageRepository = function() {
     query.find({
       success : function(results) {
         console.log("Successfully retrieved " + results.length
-        + " scores.");
+        + " org.");
         if (results.length > 0) {
           console.log("Channel exists");
         } else {
@@ -35,7 +35,7 @@ var messageRepository = function() {
     query.find({
       success : function(results) {
         console.log("Successfully retrieved " + results.length
-        + " scores.");
+        + " channel.");
         if (results.length > 0) {
           console.log("Channel exists");
         } else {
