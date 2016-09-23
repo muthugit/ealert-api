@@ -70,6 +70,7 @@ app.post('/', function(req, res) {
 	// res.send('Hello World!');
 	var orgId=req.body.team_id;
 	var channelId=req.body.channel_id;
+	console.log("ChannelID: "+channelId);
 	var organization=req.body.team_domain;
 	var userName = req.body.user_name;
 	var channelName = req.body.channel_name;
