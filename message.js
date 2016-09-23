@@ -4,7 +4,7 @@ var messageRepository = function() {
   self.addMessage = function(Parse, orgId,channelId,organization,userName,channelName,text,triggeredWord,  res) {
     self.createOrganization(Parse, orgId, organization);
     self.createChannel(Parse,channelId,channelName);
-    self.createMessage(Parse, orgId,userName,channelId,text,triggeredWord,  res);
+    self.createMessage(Parse, orgId,userName,channelId,channelName,text,triggeredWord,  res);
   }
 
   self.createOrganization=function(Parse,orgId,organization){
@@ -59,13 +59,14 @@ var messageRepository = function() {
     });
   }
 
-  self.createMessage=function(Parse, orgId,userName,channelId,text,triggeredWord,res){
+  self.createMessage=function(Parse, orgId,userName,channelId,channelName,text,triggeredWord,res){
     var domain = orgId;
     var Post = Parse.Object.extend("contentDemo");
     var postRepo = new Post();
     postRepo.set("message", text);
     postRepo.set("by", userName);
     postRepo.set("channelId", channelId);
+    postRepo.set("channelName",channelName);
     postRepo.set("orgId", orgId);
     postRepo.set("postType", triggeredWord);
     postRepo.save(null, {
