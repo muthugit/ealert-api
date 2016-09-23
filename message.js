@@ -1,17 +1,17 @@
 var number = 2;
 var messageRepository = function() {
   var self = this;
-  self.addMessage = function(Parse, organization,userName,channelName,text,triggeredWord,  res) {
-    self.createOrganization(Parse, organization);
+  self.addMessage = function(Parse, orgId,organization,userName,channelName,text,triggeredWord,  res) {
+    self.createOrganization(Parse, orgId, organization);
     self.createChannel(Parse,organization,channelName);
     self.createMessage(Parse, organization,userName,channelName,text,triggeredWord,  res);
   }
 
-  self.createOrganization=function(Parse,organization){
+  self.createOrganization=function(Parse,orgId,organization){
     var Organization = Parse.Object.extend("organizations");
     var organizationRepo = new Organization();
     var query = new Parse.Query(Organization);
-    query.equalTo("organization", organization);
+    query.equalTo("objectId", orgId);
     query.find({
       success : function(results) {
         console.log("Successfully retrieved " + results.length
